@@ -3,7 +3,7 @@ import './Header.css';
 
 export const Header = () => {
     return (
-        <div className="header d-flex ">
+        <div className="header d-flex">
             <h3>
                 <a href="#">
                     Star DB
