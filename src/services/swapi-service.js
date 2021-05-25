@@ -13,25 +13,66 @@ export class SwapiService {
 
     async getAllPeople() {
         const res = await this.getResourse(`/people/`);
-        return res.results;
+        return res.results.map(this._upgradePerson);
     };
-    getPerson(id) {
-        return this.getResourse(`/people/${id}`)
+    async getPerson(id) {
+        const person = await this.getResourse(`/people/${id}`);
+        return this._upgradePerson(person)
     };
 
     async getAllPlanets() {
         const res = await this.getResourse(`/planets/`);
-        return res.results;
+        return res.results.map(this._upgradePlanet);
     };
-    getPlanet(id) {
-        return this.getResourse(`/planets/${id}`)
+    async getPlanet(id) {
+        const planet = await this.getResourse(`/planets/${id}`);
+        return this._upgradePlanet(planet);
     };
 
     async getAllStarships() {
         const res = await this.getResourse(`/starships/`);
-        return res.results;
+        return res.results.map(this._upgradePlanet);
     };
-    getStarship(id) {
-        return this.getResourse(`/starships/${id}`)
+    async getStarship(id) {
+        const starship = await this.getResourse(`/starships/${id}`);
+        return this._upgradeStarship(starship);
     };
+
+    _getId (item) {
+        const regEx = /\/([0-9]*)\/$/;
+        return item.url.match(regEx)[1];
+    }
+
+    _upgradePlanet(planet) {
+        return {
+            id: this._getId(planet),
+            name: planet.name,
+            population: planet.population,
+            rotationPeriod: planet.rotation_period,
+            diameter: planet.diameter
+        }
+    }
+
+    _upgradeStarship(starship) {
+        return {
+            id: this._getId(starship),
+            name: starship.name,
+            model: starship.model,
+            manufacturer: starship.manufacturer,
+            costInCredits: starship.costInCredits,
+            length: starship.length,
+            crew: starship.crew,
+            passengers: starship.passengers,
+            cargoCapacity: starship.cargoCapacity
+        }
+    }
+
+    _upgradePerson(person) {
+        return {
+            id: this._getId(person),
+            name: person.name,
+            gender: person.gender,
+            birthYear: person.birthYear
+        }
+    }
 }
