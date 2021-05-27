@@ -43,7 +43,7 @@ export class SwapiService {
         return item.url.match(regEx)[1];
     }
 
-    _upgradePlanet(planet) {
+    _upgradePlanet = (planet) => {
         return {
             id: this._getId(planet),
             name: planet.name,
@@ -53,7 +53,7 @@ export class SwapiService {
         }
     }
 
-    _upgradeStarship(starship) {
+    _upgradeStarship = (starship) => {
         return {
             id: this._getId(starship),
             name: starship.name,
@@ -67,7 +67,7 @@ export class SwapiService {
         }
     }
 
-    _upgradePerson(person) {
+    _upgradePerson = (person) => {
         return {
             id: this._getId(person),
             name: person.name,
