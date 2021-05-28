@@ -7,7 +7,7 @@ import './App.css';
 
 export class App extends Component {
     state = {
-        selectedPerson: null,
+        selectedPerson: 1,
     }
 
     onPersonSelected  = (id) => {
