@@ -2,9 +2,13 @@ import React, { Component } from 'react';
 import { ErrorMessage } from '../ErrorMessage/ErrorMessage';
 import { ItemList } from '../ItemList/ItemList';
 import { PersonDetails } from '../PersonDetails/PersonDetails';
+import { SwapiService } from '../../services/swapi-service';
 import './PeoplePage.css';
+import { Row } from '../Row/Row';
 
 export class PeoplePage extends Component {
+    swapiService = new SwapiService();
+
     state = {
         selectedPerson: 4,
         hasError: false
@@ -25,15 +29,20 @@ export class PeoplePage extends Component {
             return <ErrorMessage />
         }
 
+        const itemList = (
+            <ItemList 
+                onPersonSelected={this.onPersonSelected}
+                getData={this.swapiService.getAllPeople}
+                renderItem={({ name, gender }) => `${name} (${gender})`}
+            />
+        );
+    
+        const personDetails = (
+            <PersonDetails personId={this.state.selectedPerson}/>
+        );
+
         return (
-            <div className="row mb2">
-                <div className="col-md-6">
-                    <ItemList onPersonSelected={this.onPersonSelected}/>
-                </div>
-                <div className="col-md-6">
-                    <PersonDetails personId={this.state.selectedPerson}/>
-                </div>
-            </div>
+            <Row left={itemList} right={personDetails} />
         )
     }
 }
