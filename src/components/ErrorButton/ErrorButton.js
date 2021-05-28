@@ -13,7 +13,7 @@ export class ErrorButton extends Component {
 
         return (
             <button
-                className='error-button btn btn-danger btn-lg'
+                className='btn-margin error-button btn btn-danger '
                 onClick={() => this.setState({renderError: true})}
             >
                 Throw Error
