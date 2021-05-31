@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import { Header } from '../Header/Header';
-import { RandomPlanet } from '../RandomPlanet/RandomPlanet';
-import { ErrorButton } from '../ErrorButton/ErrorButton';
 import { ErrorMessage } from '../ErrorMessage/ErrorMessage';
-import { PeoplePage } from '../PeoplePage/PeoplePage';
 import { SwapiService } from '../../services/swapi-service';
 import './App.css';
-import { ItemDetails } from '../ItemDetails/ItemDetails';
 import { Row } from '../Row/Row';
+import { PersonList, PlanetList, StarshipList } from '../SWComponents/ItemLists';
+import { PersonDetails, PlanetDetails, StarshipDetails } from '../SWComponents/Details';
 
 export class App extends Component {
     swapiService = new SwapiService();
@@ -28,30 +26,29 @@ export class App extends Component {
         const { getPerson, 
                 getStarship, 
                 getPersonImage, 
-                getPlanetImage } = this.swapiService;
+                getStarshipImage,
+                getAllPeople } = this.swapiService;
 
-        const personDetails = (
-            <ItemDetails 
-                itemId={11}
-                getData={getPerson}
-                getImageUrl={getPersonImage}
-            />
-        )
-        const starshipDetails = (
-            <ItemDetails 
-                itemId={5}
-                getData={getStarship}
-                getImageUrl={getPlanetImage}
-            />
-        )
 
         return (
             <div>
                 <Header />
-                <Row 
-                    left={personDetails}
-                    right={starshipDetails}
-                />
+
+                {/* <PersonList onItemSelected={() => {}} >
+                    { ({name}) => <span>{name}</span> }
+                </PersonList>
+
+                <PlanetList onItemSelected={() => {}} >
+                    { ({name}) => <span>{name}</span> }
+                </PlanetList>
+
+                <StarshipList onItemSelected={() => {}} >
+                    { ({name}) => <span>{name}</span> }
+                </StarshipList> */}
+
+                <PersonDetails itemId={11}/>
+                <PlanetDetails itemId={3}/>
+                <StarshipDetails itemId={13}/>
             </div>
         )
     }

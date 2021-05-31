@@ -3,6 +3,15 @@ import { SwapiService } from '../../services/swapi-service';
 import { ErrorButton } from '../ErrorButton/ErrorButton.js';
 import './ItemDetails.css';
 
+export const Record = ({ item, field, label }) => {
+    return (
+        <li className="list-group-item">
+            <span className="term">{label}</span>
+            <span>{item[field]}</span>
+        </li>
+    )
+}
+
 export class ItemDetails extends Component {
     swapiService = new SwapiService();
 
@@ -43,7 +52,7 @@ export class ItemDetails extends Component {
             return <span>Select the item from a list</span>
         }
 
-        const { id, name, gender, birthYear, eyeColor } = item;
+        const { name } = item;
 
         return (
             <div className="item-details card">
@@ -55,18 +64,11 @@ export class ItemDetails extends Component {
                 <div className="card-body">
                     <h4>{name}</h4>
                     <ul className="list-group list-group-flush">
-                        <li className="list-group-item">
-                            <span className="term">Gender</span>
-                            <span>{gender}</span>
-                        </li>
-                        <li className="list-group-item">
-                            <span className="term">Birth Year</span>
-                            <span>{birthYear}</span>
-                        </li>
-                        <li className="list-group-item">
-                            <span className="term">Eye Color</span>
-                            <span>{eyeColor}</span>
-                        </li>
+                        {
+                            React.Children.map(this.props.children , (child) => {
+                                return React.cloneElement(child, { item });
+                            })
+                        }
                     </ul>
                     <div className='button'>
                         <ErrorButton />
